@@ -55,6 +55,22 @@
                 <th>Id</th>
                 <td>{{ user.id }}</td>
             </tr>
+
+            {% for book in book %}
+                <tr>
+                    <td>{{ book.id }}</td>
+                    <td>{{ book.start ? book.start|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ book.end ? book.end|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('book_show', {'id': book.id}) }}">show</a>
+                        <a href="{{ path('book_edit', {'id': book.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

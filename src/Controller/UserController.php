@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,9 +57,10 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
+
+        $em = $this->getDoctrine()->getManager();
+        $books = $em->getRepository('App:Book')->findBy(['user' => $user->getId()]);
+        return $this->render('user/show.html.twig' , ['user' => $user, 'book' => $books]);
     }
 
     /**

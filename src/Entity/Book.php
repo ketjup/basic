@@ -38,12 +38,6 @@ class Book
      */
     private $end;
 
-    /**
-     * @ORM\OneToOne(targetEntity="betaal", inversedBy="userid", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $betaalid;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -102,17 +96,6 @@ class Book
         return strval($this->getId());
     }
 
-    public function getBetaalid(): ?betaal
-    {
-        return $this->betaalid;
-    }
-
-    public function setBetaalid(betaal $betaalid): self
-    {
-        $this->betaalid = $betaalid;
-
-        return $this;
-    }
 }
 
 
