@@ -1,7 +1,3 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-
-kamer:
-    path: /kamer
-    controller: App\Controller\KamerController::index
