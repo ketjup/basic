@@ -95,5 +95,13 @@ class BookController extends AbstractController
         return $this->redirectToRoute('book_index');
     }
 
-
+    /**
+     * @Route("/kamer", name="kamer_index", methods={"GET"})
+     */
+    public function Booking(BookRepository $bookRepository): Response
+    {
+        return $this->render('kamer/index.html.twig', [
+            'books' => $bookRepository->findAll(),
+        ]);
+    }
 }

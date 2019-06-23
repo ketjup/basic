@@ -10,6 +10,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Validator\Constraints\Date;
+
 
 /**
  * @Route("/room")
@@ -86,7 +90,7 @@ class RoomController extends AbstractController
      */
     public function delete(Request $request, Room $room): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$room->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $room->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($room);
             $entityManager->flush();
@@ -100,8 +104,10 @@ class RoomController extends AbstractController
      */
     public function checkDate()
     {
+
         $BeginDate = $_POST["BeginDate"];
         $EndDate = $_POST["EndDate"];
+
 
         $reservering = $this->getDoctrine()
             ->getRepository(Book::class)
@@ -120,6 +126,8 @@ class RoomController extends AbstractController
             'rooms' => $available,
         ]);
     }
+
+
 }
 
 
