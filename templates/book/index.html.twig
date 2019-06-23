@@ -5,21 +5,21 @@
 {% block body %}
     <h1>Book index</h1>
 
-    <form action="{{ path('room_check') }}" method="post">
-        <input type="date" required name="BeginDate">
-        <input type="date" required name="EndDate">
-        <input type="submit" name="submit">
+    <form action="{{ path('room_check') }}"  method="post">
+        <input class="begin" type="date" required name="BeginDate" min="{{ "+1day"|date("Y-m-d") }}" max="{{ "+1year"|date("Y-m-d") }}">
+        <input class="end" type="date" required name="EndDate" min="{{ "+1week"|date("Y-m-d") }}" max="{{ "+1year+1week"|date("Y-m-d") }}">
+        <input type="submit" name="submit" class="btn btn-primary">
     </form>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Room</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Room</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for book in books %}
@@ -42,4 +42,31 @@
     </table>
 
     <a href="{{ path('book_new') }}">Create new</a>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        window.onload = () => {
+            const begin = document.getElementsByClassName("begin")[0];
+            const end = document.getElementsByClassName("end")[0];
+
+            begin.addEventListener('input', e => {
+                const end_date = new Date(e.target.value);
+                const year = end_date.getFullYear();
+                let month = end_date.getMonth() + 1;
+                let day = end_date.getDate() + 1;
+
+                if (month < 10) {
+                    month = "0" + month
+                }
+                if (day < 10) {
+                    day = "0" + day
+                }
+
+                const maxMonth = end_date.getMonth() + 7;
+
+                end.setAttribute("min", `${year}-${month}-${day}`)
+                end.setAttribute("max", `${year}-${maxMonth}-${day}`)
+            })
+        }
+    </script>
 {% endblock %}

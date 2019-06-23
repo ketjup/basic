@@ -15,6 +15,7 @@
                 <th>Max_personen</th>
                 <th>Aantal_bedden</th>
                 <th>Baby_bed</th>
+                <th>Book</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,7 +26,12 @@
                 <td>{{ room.naam }}</td>
                 <td>{{ room.maxPersonen }}</td>
                 <td>{{ room.aantalBedden }}</td>
-                <td>{{ room.babyBed ? 'Yes' : 'No' }}</td>
+                <td>{{ room.babyBed ? 'Yes' : 'No' }}</td><td>
+                    <form action="{{ path('book_insert') }}" method="post">
+                        <input type="hidden" id="{{ room.id }}" name="roomid" value="{{ room.id }}">
+                        <input type="submit" value="Book" id="{{ room.id }}" class="btn btn-primary">
+                    </form>
+                </td>
                 <td>
                     <a href="{{ path('room_show', {'id': room.id}) }}">show</a>
                     <a href="{{ path('room_edit', {'id': room.id}) }}">edit</a>

@@ -96,12 +96,15 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/kamer", name="kamer_index", methods={"GET"})
+     * @Route("/insert", name="book_insert", methods={"POST"})
      */
-    public function Booking(BookRepository $bookRepository): Response
-    {
-        return $this->render('kamer/index.html.twig', [
-            'books' => $bookRepository->findAll(),
-        ]);
+    public function PlaceBook(){
+
+        $user = $this->getUser()->getId();
+        $Room_Id = $_POST['roomid'];
+
+
     }
+
+
 }
